@@ -56,6 +56,10 @@ func readLines(path string) {
 func handler(w http.ResponseWriter, r *http.Request) {
 	num, _ := strconv.ParseInt(r.FormValue("num"), 10, 0)
 
+	if int(num) > len(urls) {
+		num = int64(rand.Intn(len(urls)))
+	}
+
 	var gif_url = urls[num]
 
 	var p = new(Gif)
