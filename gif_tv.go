@@ -19,7 +19,7 @@ const INDEX = `
 <script type="text/javascript">
 $(function() {
   setTimeout(function() {
-    var num = parseInt(window.location.href.replace(/.*num=/, ''), 10) || 0;
+    var num = {{.Num}};
     num += 1;
     window.location.href = '/?num='+num;
   }, 2000);
@@ -34,6 +34,7 @@ $(function() {
 
 type Gif struct {
 	Url string
+	Num int64
 }
 
 // readLines reads a whole file into memory
@@ -64,6 +65,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	var p = new(Gif)
 	p.Url = gif_url
+	p.Num = num
 	t := template.New("gif_page")
 	t, _ = t.Parse(INDEX)
 	t.Execute(w, p)
